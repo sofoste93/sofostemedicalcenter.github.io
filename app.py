@@ -9,8 +9,33 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def main():
-    return render_template('language_selection.html')
+def language_selection():
+    return render_template("language_selection.html")
+
+
+@app.route('/enter-pin')
+def enter_pin():
+    return render_template("enter_pin.html")
+
+
+@app.route('/form-page-1')
+def form_page_1():
+    return render_template("form_page_1.html")
+
+
+@app.route('/form-page-2')
+def form_page_2():
+    return render_template("form_page_2.html")
+
+
+@app.route('/form-page-3')
+def form_page_3():
+    return render_template("form_page_3.html")
+
+
+@app.route('/summary')
+def summary():
+    return render_template("summary.html")
 
 
 @app.route('/generate-pin', methods=['GET'])

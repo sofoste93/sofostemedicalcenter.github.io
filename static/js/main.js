@@ -31,8 +31,75 @@ function onPrevPage() {
 }
 
 function onSubmitForm() {
-    // Validate form data, show the summary page, and apply translations
-    // ...
+    // Validate form data
+    const formData = getFormData();
+    if (!validateFormData(formData)) {
+        alert("Please fill out all required fields.");
+        return;
+    }
+
+    // Show the summary page and apply translations
+    showSummaryPage(formData);
+    applyTranslations();
+}
+
+function getFormData() {
+    const formData = {
+        // Add all the form fields and their values to this object
+        sex: document.getElementById("sex").value,
+        last_name: document.getElementById("last_name").value,
+        first_name: document.getElementById("first_name").value,
+        date_of_birth: document.getElementById("date_of_birth").value,
+        place_of_birth: document.getElementById("place_of_birth").value,
+        age: document.getElementById("age").value,
+        recent_illnesses: document.getElementById("recent_illnesses").value,
+        allergies: document.getElementById("allergies").value,
+        heart_ailments: document.getElementById("heart_ailments").value,
+        asthma: document.getElementById("asthma").value,
+        diabetes: document.getElementById("diabetes").value,
+        medications: document.getElementById("medications").value,
+        dietary_supplements: document.getElementById("dietary_supplements").value,
+        treatments: document.getElementById("treatments").value
+    };
+    return formData;
+}
+
+function validateFormData(data) {
+    // You can add more specific validation rules here
+    for (const key in data) {
+        if (!data[key]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+document.querySelectorAll(".language-button").forEach(btn => btn.addEventListener("click", onLanguageSubmit));
+
+function onLanguageSubmit() {
+    language = this.getAttribute('data-language');
+    loadTranslations();
+    window.location.href = "/enter-pin";
+}
+
+document.getElementById("pin-submit").addEventListener("click", onPinSubmit);
+
+async function onPinSubmit(event) {
+    event.preventDefault();
+    const pin = document.getElementById("pin").value;
+
+    const response = await fetch('/generate-pin');
+    if (response.ok) {
+        const data = await response.json();
+        const generatedPin = data.pin;
+        if (pin === generatedPin) {
+            window.location.href = "/form-page-1";
+        } else {
+            alert("Incorrect PIN. Please try again.");
+        }
+    } else {
+        alert("Error: Could not verify PIN.");
+    }
 }
 
 function showFormPage(pageNumber) {
@@ -85,10 +152,25 @@ function applyTranslations() {
     });
 }
 
-function onPinSubmit() {
+async function onPinSubmit() {
     const pin = document.getElementById("pin").value;
-    // Verify the PIN and render the first form page
-    // ...
+
+    // Verify the PIN by comparing it with the generated PIN
+    // You may want to implement server-side verification for a real-world application
+    const response = await fetch('/generate-pin');
+    if (response.ok) {
+        const data = await response.json();
+        const generatedPin = data.pin;
+        if (pin === generatedPin) {
+            // Render the first form page
+            showFormPage(1);
+            applyTranslations();
+        } else {
+            alert("Incorrect PIN. Please try again.");
+        }
+    } else {
+        alert("Error: Could not verify PIN.");
+    }
 }
 
 function showFormPage(pageNumber) {
@@ -97,24 +179,17 @@ function showFormPage(pageNumber) {
     document.getElementById(`form-page-${pageNumber}`).style.display = "block";
 }
 
-function displaySummary() {
-    const form = document.getElementById("medical-form");
-    const formData = new FormData(form);
-
-    for (const [key, value] of formData.entries()) {
-        summaryData[key] = value;
-    }
-
+function showSummaryPage(formData) {
     const summaryElement = document.getElementById("summary-data");
     summaryElement.innerHTML = "";
-    for (const key in summaryData) {
+    for (const key in formData) {
         const dataElement = document.createElement("p");
-        dataElement.textContent = `${key}: ${summaryData[key]}`;
+        dataElement.textContent = `${translations[key] || key}: ${formData[key]}`;
         summaryElement.appendChild(dataElement);
     }
 
-    currentPage++;
-    showFormPage(currentPage);
+    showFormPage("summary");
 }
 
-document.getElementById("btn-request-pin").addEventListener("click", onRequestPin);c
+document.getElementById("btn-request-pin").addEventListener("click", onRequestPin);
+
