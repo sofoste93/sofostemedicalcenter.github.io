@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Enter PIN</h1>
+    <form onsubmit="event.preventDefault(); onPinSubmit()">
+        <div class="mb-3">
+            <label for="pin" class="form-label">PIN</label>
+            <input type="text" class="form-control" id="pin" placeholder="Enter the PIN you received">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,13 +1,16 @@
-from flask import Flask, jsonify, json
-from flask import request
 from encryption import generate_key, encrypt_data
-from flask import send_file
 from encryption import decrypt_data
 from qr_code_generator import generate_qr_code
+from flask import Flask, jsonify, json, request, send_file, render_template
 
 import random
 
 app = Flask(__name__)
+
+
+@app.route('/')
+def main():
+    return render_template('language_selection.html')
 
 
 @app.route('/generate-pin', methods=['GET'])

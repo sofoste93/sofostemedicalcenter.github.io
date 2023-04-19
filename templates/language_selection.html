@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Select Language</h1>
-<select id="language-selection">
-    <option value="en">English</option>
-    <option value="fr">Français</option>
-    <option value="de">Deutsch</option>
-</select>
-<button id="language-submit">Submit</button>
+<div class="container">
+    <h1>Select Language</h1>
+    <div class="btn-group" role="group">
+<button type="button" class="btn btn-primary" onclick="onLanguageSubmit('en')">English</button>
+<button type="button" class="btn btn-primary" onclick="onLanguageSubmit('fr')">Français</button>
+<button type="button" class="btn btn-primary" onclick="onLanguageSubmit('de')">Deutsch</button>
+    </div>
+</div>
 {% endblock %}

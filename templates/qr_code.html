@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>QR Code</h1>
+    <div class="text-center">
+        <img src="/generate-qr-code/{{ encryption_key }}" alt="QR Code" class="img-fluid">
+    </div>
+</div>
+{% endblock %}
