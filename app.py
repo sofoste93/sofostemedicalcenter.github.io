@@ -29,7 +29,10 @@ def validate_medical_data(data):
 
 @app.route('/submit-form', methods=['POST'])
 def submit_form():
-    # ...
+    data = request.get_json()
+
+    if not validate_medical_data(data):
+        return jsonify({'error': 'Invalid data'}), 400
 
     # Encrypt data and save to the device
     key = generate_key()
@@ -39,8 +42,6 @@ def submit_form():
         f.write(encrypted_data)
 
     return jsonify({'success': True, 'encryption_key': key.decode('utf-8')})
-
-    return jsonify({'success': True})
 
 
 @app.route('/generate-qr-code/<key>', methods=['GET'])
