@@ -50,7 +50,7 @@ jobs:
       - name: Package Unix bundle
         if: runner.os != 'Windows'
         shell: bash
-        run: tar -C dist -czf "../${{ matrix.package }}" "${{ matrix.executable }}"
+        run: tar -czf "${{ github.workspace }}/${{ matrix.package }}" -C dist "${{ matrix.executable }}"
       - uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.executable }}
