@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ t.share_title }} · Sofoste{% endblock %}
+{% block content %}
+<section class="page shell narrow reveal center">
+  <p class="eyebrow">02 · SECURE TRANSFER</p><h1>{{ t.share_title }}</h1><p class="lead compact">{{ t.share_intro }}</p>
+  <div class="transfer-card">
+    <div class="qr-frame"><img src="{{ qr_uri }}" alt="Encrypted medical transfer QR code"></div>
+    <div class="key-panel"><span>{{ t.transfer_key }}</span><code id="transfer-key">{{ key }}</code><button class="button secondary small" type="button" data-copy-key data-copy-label="{{ t.copy }}" data-copied-label="{{ t.copied }}">{{ t.copy }}</button></div>
+  </div>
+  <div class="notice warning"><strong>!</strong><p>{{ t.share_warning }}</p></div>
+  <div class="actions centered"><a class="button primary" href="{{ url_for('intake') }}">{{ t.new_record }}</a><button class="button secondary" type="button" data-print>{{ t.print }}</button></div>
+</section>
+{% endblock %}

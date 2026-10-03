@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ t.receive_title }} · Sofoste{% endblock %}
+{% block content %}
+<section class="page shell narrow reveal">
+  <p class="eyebrow">03 · DECRYPT</p><h1>{% if record %}{{ t.result_title }}{% else %}{{ t.receive_title }}{% endif %}</h1>
+  {% if record %}
+    <div class="record-card">
+      {% for field in fields %}{% if record.get(field) %}<div><span>{{ t[field] }}</span><strong>{{ record[field] }}</strong></div>{% endif %}{% endfor %}
+    </div>
+    <div class="actions"><a class="button primary" href="{{ url_for('receive') }}">{{ t.close_record }}</a></div>
+  {% else %}
+    <p class="lead compact">{{ t.receive_intro }}</p>
+    {% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
+    <form method="post" class="receive-form" autocomplete="off">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <label>{{ t.packet }}<textarea id="packet" name="packet" rows="5" required spellcheck="false"></textarea></label>
+      <label>{{ t.transfer_key }}<input name="key" maxlength="24" placeholder="{{ t.key_placeholder }}" required spellcheck="false"></label>
+      <button class="button primary" type="submit">{{ t.open }} <span>→</span></button>
+    </form>
+  {% endif %}
+</section>
+{% endblock %}

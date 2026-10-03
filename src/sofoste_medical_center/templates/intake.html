@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ t.form_title }} · Sofoste{% endblock %}
+{% block content %}
+<section class="page shell narrow reveal">
+  <p class="eyebrow">01 · {{ t.nav_create }}</p><h1>{{ t.form_title }}</h1><p class="lead compact">{{ t.form_intro }}</p>
+  {% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
+  <form method="post" class="medical-form" autocomplete="off">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <fieldset><legend>{{ t.identity }}</legend><div class="form-grid">
+      <label>{{ t.first_name }}<input name="first_name" maxlength="60" required></label>
+      <label>{{ t.last_name }}<input name="last_name" maxlength="60" required></label>
+      <label>{{ t.birth_date }}<input type="date" name="birth_date" min="1900-01-01" required></label>
+      <label>{{ t.sex }}<input name="sex" maxlength="30"></label>
+      <label>{{ t.blood_type }}<select name="blood_type"><option value="">—</option>{% for value in ['A+','A−','B+','B−','AB+','AB−','O+','O−'] %}<option>{{ value }}</option>{% endfor %}</select></label>
+      <label>{{ t.emergency_contact }}<input name="emergency_contact" maxlength="100"></label>
+    </div></fieldset>
+    <fieldset><legend>{{ t.medical }}</legend><div class="form-grid">
+      <label>{{ t.allergies }}<textarea name="allergies" maxlength="500" rows="3"></textarea></label>
+      <label>{{ t.conditions }}<textarea name="conditions" maxlength="500" rows="3"></textarea></label>
+      <label>{{ t.medications }}<textarea name="medications" maxlength="500" rows="3"></textarea></label>
+      <label>{{ t.notes }}<textarea name="notes" maxlength="500" rows="3"></textarea></label>
+    </div></fieldset>
+    <div class="actions"><button class="button primary" type="submit">{{ t.generate }} <span>→</span></button><a class="button text" href="{{ url_for('home') }}">{{ t.cancel }}</a></div>
+  </form>
+</section>
+{% endblock %}

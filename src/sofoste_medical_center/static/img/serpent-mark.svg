@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="Serpent of care">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#32c78b"/><stop offset="1" stop-color="#087253"/></linearGradient></defs>
+  <circle cx="48" cy="48" r="45" fill="#effbf6" stroke="#c7eadc" stroke-width="2"/>
+  <path d="M48 19v59M36 28h24" fill="none" stroke="#154b3d" stroke-width="6" stroke-linecap="round"/>
+  <path d="M58 30c-2-7-15-7-17 1-2 9 17 9 15 18-2 8-17 5-17 14 0 8 12 9 17 3" fill="none" stroke="url(#g)" stroke-width="6" stroke-linecap="round"/>
+  <path d="m57 27 8-2-4 7z" fill="#32c78b"/><circle cx="60" cy="27" r="1.2" fill="#154b3d"/>
+</svg>

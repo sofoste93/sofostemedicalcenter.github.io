@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b6b4f">
+  <title>{% block title %}Sofoste Medical Center{% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/serpent-mark.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+  <script src="{{ url_for('static', filename='js/app.js') }}" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <header class="topbar shell">
+    <a class="brand" href="{{ url_for('home') }}" aria-label="Sofoste Medical Center">
+      <img src="{{ url_for('static', filename='img/serpent-mark.svg') }}" width="46" height="46" alt="">
+      <span><strong>SOFOSTE</strong><small>MEDICAL CENTER</small></span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="{{ url_for('intake') }}">{{ t.nav_create }}</a>
+      <a href="{{ url_for('receive') }}">{{ t.nav_receive }}</a>
+      <a href="{{ url_for('home') }}#help">{{ t.nav_help }}</a>
+      <button class="icon-button" type="button" data-open-settings aria-label="{{ t.nav_settings }}">⚙</button>
+    </nav>
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer class="shell footer"><span>{{ t.footer }}</span><span class="status"><i></i>{{ t.local }}</span></footer>
+
+  <dialog id="settings-dialog">
+    <form method="dialog" class="dialog-card">
+      <button class="dialog-close" value="close" aria-label="Close">×</button>
+      <p class="eyebrow">{{ t.nav_settings }}</p>
+      <h2>{{ t.settings_title }}</h2>
+      <label>{{ t.language }}</label>
+      <div class="language-row">
+        {% for code, name in languages.items() %}<a class="chip{% if code == lang %} active{% endif %}" href="{{ url_for('set_language', selected=code) }}">{{ name }}</a>{% endfor %}
+      </div>
+      <label class="toggle"><input type="checkbox" data-setting="motion" checked><span></span>{{ t.motion }}</label>
+      <label class="toggle"><input type="checkbox" data-setting="largeText"><span></span>{{ t.large_text }}</label>
+    </form>
+  </dialog>
+</body>
+</html>

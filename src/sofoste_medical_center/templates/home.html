@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero shell">
+  <div class="hero-copy reveal">
+    <p class="eyebrow"><span class="pulse"></span>{{ t.hero_eyebrow }}</p>
+    <h1>{{ t.hero_title }}</h1>
+    <p class="lead">{{ t.hero_text }}</p>
+    <div class="actions">
+      <a class="button primary" href="{{ url_for('intake') }}">{{ t.create }} <span>→</span></a>
+      <a class="button secondary" href="{{ url_for('receive') }}">{{ t.receive }}</a>
+    </div>
+  </div>
+  <div class="hero-visual reveal delay" aria-hidden="true">
+    <div class="orbit orbit-outer"><i></i></div><div class="orbit orbit-inner"><i></i></div>
+    <div class="medical-seal"><img src="{{ url_for('static', filename='img/serpent-mark.svg') }}" alt=""></div>
+    <div class="telemetry"><span>LOCAL NODE</span><strong>SECURE</strong><div class="signal"><i></i><i></i><i></i><i></i></div></div>
+  </div>
+</section>
+
+<section class="trust shell">
+  <article><span class="feature-icon">⌂</span><div><h3>{{ t.local }}</h3><p>{{ t.local_text }}</p></div></article>
+  <article><span class="feature-icon">◇</span><div><h3>{{ t.encrypted }}</h3><p>{{ t.encrypted_text }}</p></div></article>
+  <article><span class="feature-icon">↗</span><div><h3>{{ t.portable }}</h3><p>{{ t.portable_text }}</p></div></article>
+</section>
+
+<section class="process shell" id="help">
+  <p class="eyebrow">{{ t.nav_help }}</p><h2>{{ t.how_title }}</h2>
+  <div class="steps">
+    <article><span>01</span><h3>{{ t.step1 }}</h3><p>{{ t.step1_text }}</p></article>
+    <article><span>02</span><h3>{{ t.step2 }}</h3><p>{{ t.step2_text }}</p></article>
+    <article><span>03</span><h3>{{ t.step3 }}</h3><p>{{ t.step3_text }}</p></article>
+  </div>
+  <div class="notice"><strong>ⓘ</strong><p>{{ t.privacy }}</p></div>
+</section>
+{% endblock %}

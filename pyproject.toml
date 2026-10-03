@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sofoste-medical-center"
+version = "2.0.0"
+description = "Local-first encrypted medical information transfer"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Sofoste" }]
+dependencies = [
+  "Flask>=3.1,<4",
+  "cryptography>=45,<51",
+  "Pillow>=11,<13",
+  "qrcode>=8.2,<9",
+  "waitress>=3.0.2,<4",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.4,<10",
+  "pytest-cov>=6.2,<8",
+  "ruff>=0.12,<1",
+  "PyInstaller>=6.15,<7",
+]
+
+[project.scripts]
+sofoste-medical-center = "sofoste_medical_center.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+sofoste_medical_center = ["templates/*.html", "static/css/*.css", "static/js/*.js", "static/img/*.svg"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --disable-warnings --strict-markers"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
